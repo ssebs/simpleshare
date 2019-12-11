@@ -34,5 +34,5 @@ A local file sharing utility written in Python.
 - tbd
 
 ## License
-MIT &copy; 2019 Sebastian Safari
+[MIT](./LICENSE) &copy; 2019 Sebastian Safari
 
