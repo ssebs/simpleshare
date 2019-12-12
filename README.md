@@ -1,5 +1,5 @@
 # simpleshare
-A local file sharing utility written in Python. 
+A local file sharing utility written in Python. Uses multicast UDP to share the files, and HTTP to transfer them.
 
 ## Goal:
 - Single binary output
@@ -38,17 +38,27 @@ A local file sharing utility written in Python.
     $ source ./venv/bin/activate
     $ pip install -r requirements.txt
     $ python run.py [<OPTIONS>] FILENAME
-  ```
+    ```
 - Binary:
-  - tbd, hopefully just download a binary for your platform
+  - TBD, hopefully just download a binary for your platform
 
 ## Usage:
 - CLI
   ```
-TBD.
+  Usage: python simpleshare.py [<OPTION>] FILENAME
+
+  Local file sharing utility. Can be used as server and as client. GUI available.
+  
+  Options:
+  -s                   Server, use this option to serve the file/dir. (Default)
+  -c                   Client, use this option to be a client.
+  -f                   File type, serve a file.
+  -d                   Directory type, serve a dir. (Defaults to .)
+  
+  -h, --help, --usage  Print this help message
   ```
 - GUI
-  - Double click the gui binary and follow the instructions.
+  - TBD, Double click the gui binary and follow the instructions.
 
 ## License
 [MIT](./LICENSE) &copy; 2019 Sebastian Safari
