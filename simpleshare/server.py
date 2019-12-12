@@ -9,7 +9,7 @@ MCASTGROUP = '225.0.0.250'
 TTL = 1  # Increase to reach other networks
 
 
-def server():
+def sender():
     addrinfo = socket.getaddrinfo(MCASTGROUP, None)[0]
 
     s = socket.socket(addrinfo[0], socket.SOCK_DGRAM)

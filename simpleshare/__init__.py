@@ -1,7 +1,7 @@
 # simpleshare
 from .cli import parse_flags
-from .server import server
-from .client import client
+from .server import sender
+from .client import listener
 
 
 def cli_main():
@@ -9,9 +9,9 @@ def cli_main():
     print(flags)
     # flag defaults: {"ServeType": "file", "isServer": True, "filename": "."}
     if flags["isServer"]:
-        server()
+        sender()
     else:
-        client()
+        listener()
 
 
 def test():

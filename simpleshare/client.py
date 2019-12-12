@@ -8,18 +8,15 @@ MCASTGROUP = '225.0.0.250'
 TTL = 1  # Increase to reach other networks
 
 
-def client():
+def listener():
     # Look up multicast group address in name server and find out IP version
     addrinfo = socket.getaddrinfo(MCASTGROUP, None)[0]
-
     # Create a socket
     s = socket.socket(addrinfo[0], socket.SOCK_DGRAM)
 
     # Allow multiple copies of this program on one machine
     # (not strictly needed)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
-    # Bind it to the port
     s.bind(('', PORT))
 
     # aton instead of pton for Win suppt
@@ -32,4 +29,4 @@ def client():
         data, sender = s.recvfrom(1500)
         while data[-1:] == '\0':
             data = data[:-1]  # Strip trailing \0's
-        print(str(sender) + '  ' + repr(data))
+        print(str(sender[0]) + '  ' + repr(data))
