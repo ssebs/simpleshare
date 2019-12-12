@@ -29,7 +29,18 @@ A local file sharing utility written in Python.
 - [ ] Unit Tests
 
 ## Installation:
-- tbd, hopefully just download a binary for your platform
+- Source:
+  - Install Python 3
+  - ```
+    $ git clone https://github.com/ssebs/simpleshare
+    $ cd simpleshare/
+    $ python -m venv venv
+    $ source ./venv/bin/activate
+    $ pip install -r requirements.txt
+    $ python run.py [<OPTIONS>] FILENAME
+  ```
+- Binary:
+  - tbd, hopefully just download a binary for your platform
 
 ## Usage:
 - CLI
