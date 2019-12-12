@@ -1,6 +1,6 @@
 # run.py
-from simpleshare import test, main
+from simpleshare import test, cli_main
 
 if __name__ == "__main__":
     # test()
-    main()
+    cli_main()

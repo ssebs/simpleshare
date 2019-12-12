@@ -4,9 +4,14 @@ from .server import server
 from .client import client
 
 
-def main():
+def cli_main():
     flags = parse_flags()
     print(flags)
+    # flag defaults: {"ServeType": "file", "isServer": True, "filename": "."}
+    if flags["isServer"]:
+        server()
+    else:
+        client()
 
 
 def test():

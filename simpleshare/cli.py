@@ -6,10 +6,10 @@ help_message = """Usage: python simpleshare.py [<OPTION>] FILENAME
 Local file sharing utility. Can be used as server and as client. GUI available.
 
 Options:
- -s                   Server, use this option to serve the file/dir.
+ -s                   Server, use this option to serve the file/dir. (Default)
  -c                   Client, use this option to be a client.
  -f                   File type, serve a file.
- -d                   Directory type, serve a dir.
+ -d                   Directory type, serve a dir. (Defaults to .)
 
  -h, --help, --usage  Print this help message
 """
@@ -18,7 +18,7 @@ allowed_options = ["-s", "-c", "-f", "-d", "-h", "--help", "--usage"]
 
 
 def parse_flags():
-    flags = {"ServeType": "file", "isServer": True, "filename": None}
+    flags = {"ServeType": "dir", "isServer": True, "filename": "."}
 
     if len(sys.argv) < 2:
         print(help_message)
