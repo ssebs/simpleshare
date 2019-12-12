@@ -5,7 +5,6 @@ import struct
 
 PORT = 8139
 MCASTGROUP = '225.0.0.250'
-TTL = 1  # Increase to reach other networks
 
 
 def listener():
@@ -17,7 +16,9 @@ def listener():
     # Allow multiple copies of this program on one machine
     # (not strictly needed)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    s.bind(('', PORT))
+
+    # s.bind(('', PORT))
+    s.bind((MCASTGROUP, PORT))
 
     # aton instead of pton for Win suppt
     group_bin = socket.inet_aton(addrinfo[4][0])

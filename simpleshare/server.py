@@ -6,7 +6,7 @@ import time
 
 PORT = 8139
 MCASTGROUP = '225.0.0.250'
-TTL = 1  # Increase to reach other networks
+TTL = 2  # Increase to reach other networks
 
 
 def sender():

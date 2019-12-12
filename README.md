@@ -14,13 +14,13 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
 - [ ] Structure program
     <!-- https://stackoverflow.com/questions/9382045/send-a-file-through-sockets-in-python -->
 - Server
-  - [ ] Listen to incoming conns on multicast 
+  - [ ] "Broadcast" (multicast) that you're sharing "x" file
   - [ ] Have server send files if requested to IP found.
   - [ ] CLI
   - [ ] GUI
     - [ ] DnD
 - Client
-  - [ ] Check subnet for existing conns on multicast
+  - [ ] Listen to see if anyone is sharing files
   - [ ] List available files / folders
   - [ ] Download files to specified folder
   - [ ] CLI
