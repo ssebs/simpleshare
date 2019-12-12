@@ -34,16 +34,7 @@ A local file sharing utility written in Python.
 ## Usage:
 - CLI
   ```
-  Usage: python simpleshare.py [<OPTION>] FILENAME
-  
-  Local file sharing utility. Can be used as server and as client. GUI available.
-
-  Options:
-   -t                   Type, can be "f" or "d" for file or directory.
-   -s                   Server, use this option to serve the file/dir.
-   -c                   Client, use this option to be a client
-
-   -h, --help           Print this help message
+TBD.
   ```
 - GUI
   - Double click the gui binary and follow the instructions.

@@ -1,4 +1,12 @@
 # simpleshare
+from .cli import parse_flags
+from .server import server
+from .client import client
+
+
+def main():
+    flags = parse_flags()
+    print(flags)
 
 
 def test():
