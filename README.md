@@ -35,7 +35,12 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
     $ git clone https://github.com/ssebs/simpleshare
     $ cd simpleshare/
     $ python -m venv venv
-    $ source ./venv/bin/activate
+    ```
+  - Linux: 
+    - `$ source ./venv/bin/activate`
+  - Windows: 
+    - `> .\venv\Scripts\activate.bat`
+    ```
     $ pip install -r requirements.txt
     $ python run.py [<OPTIONS>] FILENAME
     ```
