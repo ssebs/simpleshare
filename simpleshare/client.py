@@ -4,7 +4,7 @@ import socket
 import struct
 
 PORT = 8139
-MCASTGROUP = '225.0.0.250'
+MCASTGROUP = '224.0.1.68'
 
 
 def listener():
