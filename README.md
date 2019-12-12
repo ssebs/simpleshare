@@ -65,5 +65,8 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
 - GUI
   - TBD, Double click the gui binary and follow the instructions.
 
+## Building
+- `$ pyinstaller run.py --clean -F`
+
 ## License
 [MIT](./LICENSE) &copy; 2019 Sebastian Safari

@@ -22,9 +22,8 @@ def client():
     # Bind it to the port
     s.bind(('', PORT))
 
-    group_bin = socket.inet_pton(addrinfo[0], addrinfo[4][0])
-    # Join group
-
+    # aton instead of pton for Win suppt
+    group_bin = socket.inet_aton(addrinfo[4][0])
     mreq = group_bin + struct.pack('=I', socket.INADDR_ANY)
     s.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 
