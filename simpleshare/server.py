@@ -9,7 +9,7 @@ def broadcast_info(my_ip, mcastip, fn, port):
     print("Broadcasting.")
     # 24 & 5 for 2 mins
     tries = 15
-    delay = 0.5
+    delay = 1
 
     # addrinfo = socket.getaddrinfo(mcastip, None)[0]
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
