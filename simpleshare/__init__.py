@@ -3,7 +3,7 @@ from threading import Thread
 
 from .cli import parse_flags
 from .util import is_port_open
-from .server import sender, broadcast_info, wait_for_replies
+from .server import broadcast_info, wait_for_replies
 from .client import reply_if_server_available
 
 # defaults
@@ -19,12 +19,14 @@ def cli_main():
         # Check if another server is running
         pass
 
-        # Send "broadcast" every 5 secs, this is the name of it, and what port to send your replies to.
+        # Send "broadcast" every 5 secs, this is the name of it, and what port
+        #  to send your replies to.
         broadcast_thread = Thread(target=broadcast_info, args=(
             flags["ip"], MCASTGROUP, flags["filename"], PORT))
         broadcast_thread.start()
 
-        # listen to replies, see if they want the file while the broadcast is active.
+        # listen to replies, see if they want the file while the broadcast
+        # is active.
         # #TODO: Make this stop when the bcast thread stops...
         while broadcast_thread.is_alive():
             foo = wait_for_replies(flags["ip"], flags["filename"], PORT+1)

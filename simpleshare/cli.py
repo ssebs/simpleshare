@@ -29,11 +29,11 @@ def get_my_ip():
 
     choice = input("> ")
     try:
-        choice = int(choice) 
-    except:
+        choice = int(choice)
+    except Exception:
         print("Not a number")
         exit(1)
-    
+
     if choice <= len(my_ips):
         return my_ips[choice - 1]
 
@@ -70,7 +70,7 @@ def parse_flags():
         else:
             flags["filename"] = flag.strip()
 
-    if flags["isServer"]:
+    if flags["isServer"] or True:
         if flags["ip"] is None:
             flags["ip"] = get_my_ip()
         try:
