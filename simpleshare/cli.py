@@ -78,3 +78,5 @@ def parse_flags():
         flags["ip"] = get_my_ip()
 
     return flags
+
+# parse_flags
