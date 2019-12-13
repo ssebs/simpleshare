@@ -3,22 +3,17 @@
 import socket
 import struct
 
-PORT = 8139
-MCASTGROUP = '224.0.1.68'
 
-
-def listener():
+# # sample code to test multicast
+def listener(mcgroup, port):
     # Look up multicast group address in name server and find out IP version
-    addrinfo = socket.getaddrinfo(MCASTGROUP, None)[0]
-    # Create a socket
+    addrinfo = socket.getaddrinfo(mcgroup, None)[0]
     s = socket.socket(addrinfo[0], socket.SOCK_DGRAM)
 
     # Allow multiple copies of this program on one machine
     # (not strictly needed)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
-    # s.bind(('', PORT))
-    s.bind((MCASTGROUP, PORT))
+    s.bind(('', port))
 
     # aton instead of pton for Win suppt
     group_bin = socket.inet_aton(addrinfo[4][0])
@@ -28,6 +23,4 @@ def listener():
     # Loop, printing any data we receive
     while True:
         data, sender = s.recvfrom(1500)
-        while data[-1:] == '\0':
-            data = data[:-1]  # Strip trailing \0's
-        print(str(sender[0]) + '  ' + repr(data))
+        print(f"{str(sender[0])}:{data.decode('utf-8')}")
