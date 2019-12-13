@@ -70,12 +70,13 @@ def parse_flags():
         else:
             flags["filename"] = flag.strip()
 
-    if flags["ip"] is None:
-        flags["ip"] = get_my_ip()
-    try:
-        socket.inet_aton(flags["ip"])
-    except socket.error:
-        flags["ip"] = get_my_ip()
+    if flags["isServer"]:
+        if flags["ip"] is None:
+            flags["ip"] = get_my_ip()
+        try:
+            socket.inet_aton(flags["ip"])
+        except socket.error:
+            flags["ip"] = get_my_ip()
 
     return flags
 

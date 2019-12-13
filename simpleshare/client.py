@@ -6,6 +6,7 @@ import struct
 
 # # sample code to test multicast
 def listener(mcgroup, port):
+    print("Waiting for server...")
     # Look up multicast group address in name server and find out IP version
     addrinfo = socket.getaddrinfo(mcgroup, None)[0]
     s = socket.socket(addrinfo[0], socket.SOCK_DGRAM)
@@ -23,4 +24,13 @@ def listener(mcgroup, port):
     # Loop, printing any data we receive
     while True:
         data, sender = s.recvfrom(1500)
-        print(f"{str(sender[0])}:{data.decode('utf-8')}")
+        print(data.decode('utf-8'))
+
+# # CLI TEST
+"""
+import socket
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.sendto(b"Test", ("10.0.0.251", 8140))
+
+
+"""

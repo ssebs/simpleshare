@@ -3,7 +3,7 @@ import asyncio
 
 from .cli import parse_flags
 from .util import is_port_open
-from .server import sender, broadcast_info
+from .server import sender, broadcast_info, wait_for_replies
 from .client import listener
 
 # defaults
@@ -24,12 +24,15 @@ async def cli_main():
             broadcast_info(flags["ip"], MCASTGROUP, flags["filename"], PORT))
 
         # listen to replies, see if they want the file
-        pass
+        task_replies = asyncio.create_task(
+            wait_for_replies(flags["ip"], flags["filename"], PORT+1))
         # send file
         pass
 
         await task_broadcast
 
+        foo = await task_replies
+        print(foo)
         # ## TEST
         # sender(flags["filename"])
     else:
