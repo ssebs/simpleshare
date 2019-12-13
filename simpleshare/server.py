@@ -5,11 +5,11 @@ import struct
 import time
 
 
-async def broadcast_info(my_ip, mcastip, fn, port):
+def broadcast_info(my_ip, mcastip, fn, port):
     print("Broadcasting.")
     # 24 & 5 for 2 mins
-    tries = 2
-    delay = 1
+    tries = 24
+    delay = 5
 
     addrinfo = socket.getaddrinfo(mcastip, None)[0]
     s = socket.socket(addrinfo[0], socket.SOCK_DGRAM)
@@ -24,17 +24,15 @@ async def broadcast_info(my_ip, mcastip, fn, port):
 # broadcast_info
 
 
-async def wait_for_replies(my_ip, fn, port):
+def wait_for_replies(my_ip, fn, port):
     print(f"{my_ip} {fn} {port}")
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
         s.bind((my_ip, port))
 
-        while True:
-            data = s.recv(1024)
-            # handle the accept
-        #     print(data)
-            return data
-
+        # Wait for a reply & send the info
+        while True: 
+            data, addr = s.recvfrom(1024)
+            return f"{addr}:" + str(data.decode("utf-8"))
 # wait_for_replies
 
 # sample code to test multicast

@@ -1,5 +1,5 @@
 # simpleshare
-import asyncio
+from threading import Thread
 
 from .cli import parse_flags
 from .util import is_port_open
@@ -11,7 +11,7 @@ PORT = 8139
 MCASTGROUP = '239.0.0.68'
 
 
-async def cli_main():
+def cli_main():
     flags = parse_flags()
     print(flags)
     # flag defaults: {"ServeType": "file", "isServer": True, "filename": "."}
@@ -20,25 +20,19 @@ async def cli_main():
         pass
 
         # Send msg every 5 secs that you have a file to share, this is the name of it, and what port to send your replies to.
-        task_broadcast = asyncio.create_task(
-            broadcast_info(flags["ip"], MCASTGROUP, flags["filename"], PORT))
+        broadcast_thread = Thread(target=broadcast_info, args=(
+            flags["ip"], MCASTGROUP, flags["filename"], PORT))
+        broadcast_thread.start()
 
         # listen to replies, see if they want the file
-        task_replies = asyncio.create_task(
-            wait_for_replies(flags["ip"], flags["filename"], PORT+1))
-        # send file
-        pass
+        while broadcast_thread.is_alive():
+            foo = wait_for_replies(flags["ip"], flags["filename"], PORT+1)
+            print(f"reply: {foo}")
+            # send file
 
-        await task_broadcast
-
-        foo = await task_replies
-        print(foo)
         # ## TEST
         # sender(flags["filename"])
     else:
         # ## TEST
         listener(MCASTGROUP, PORT)
-
-
-def test():
-    print("Welcome to simpleshare. This project is nowhere near done.")
+# cli_main
