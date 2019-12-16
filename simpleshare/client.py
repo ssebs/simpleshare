@@ -28,6 +28,7 @@ def reply_if_server_available(mcgroup, port):
         if data is None:
             continue
         str_data = data.decode('utf-8').split(",")
+        # print(str_data)
         ip = str_data[0].split(":")[1].strip()
         filename = str_data[1].split(":")[1].strip()
         port = int(str_data[2].split(":")[1].strip())

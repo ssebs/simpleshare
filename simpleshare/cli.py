@@ -72,7 +72,8 @@ def parse_flags():
         else:
             flags["filename"] = flag.strip()
 
-    if flags["isServer"] or True:
+    # if flags["isServer"] or True:
+    if flags["isServer"]:
         if flags["ip"] is None:
             flags["ip"] = get_my_ip()
         try:

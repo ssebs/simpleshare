@@ -1,4 +1,5 @@
 # simpleshare
+from os import path
 from threading import Thread
 
 from .cli import parse_flags
@@ -15,6 +16,10 @@ def cli_main():
     flags = parse_flags()
     # print(flags)
     # flag defaults: {"ServeType": "file", "isServer": True, "filename": "."}
+
+    if not path.exists(flags["filename"]):
+        raise Exception(f"File does not exist at {flags['filename']}")
+
     if flags["isServer"]:
         # Check if another server is running
         pass
