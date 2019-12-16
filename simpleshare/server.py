@@ -53,15 +53,3 @@ def send_file(my_ip, filename, port):
             c.close()
             break
 # send_file
-
-# sample code to test multicast
-# def sender(mcgroup, port, fn):
-#     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-#     ttl_bin = struct.pack('@i', 2)
-#     s.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, ttl_bin)
-
-#     while True:
-#         data = fn.encode("utf-8")
-#         s.sendto(data, (mcgroup, port))
-#         print("Sending data...")
-#         time.sleep(1)
