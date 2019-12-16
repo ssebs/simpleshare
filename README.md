@@ -5,27 +5,35 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
 - Single binary output
 - Cross platform
 - CLI
-  - Args for the file / folder name
+  - Args for the file name
 - GUI
   - DnD support. 
-- Once file / folder is shared as server, client app on same network will be able to see that "someone" is sharing, and download the folder/files
+- Once file is shared as server, client app on same network will be able to see that "someone" is sharing, and download the file.
+- Folder support
 
 ## TODO:
 - [ ] Structure program
     <!-- https://stackoverflow.com/questions/9382045/send-a-file-through-sockets-in-python -->
 - Server
-  - [ ] "Broadcast" (multicast) that you're sharing "x" file
+  - [x] "Broadcast" (multicast) that you're sharing "x" file
   - [ ] Have server send files if requested to IP found.
-  - [ ] CLI
+  - [.] CLI
   - [ ] GUI
     - [ ] DnD
 - Client
-  - [ ] Listen to see if anyone is sharing files
-  - [ ] List available files / folders
+  - [x] Listen to see if anyone is sharing files
+  - [x] List available files
   - [ ] Download files to specified folder
-  - [ ] CLI
+  - [.] CLI
   - [ ] GUI
-- [ ] Binary output
+- [ ] Make this work with 1 file, 1 client
+- [ ] Make this work with 1 file, 2 clients
+- [ ] Make this work with 1 dir, 1 client
+- [ ] Make this work with 1 dir, 2 clients
+- [ ] Make this work with 2 files (2 servers), 1 client
+- [ ] Make this work with 2 files (2 servers), 2 client
+- [x] Binary output
+- [ ] Refactor + document
 - [ ] Unit Tests
 
 ## Installation:
@@ -41,11 +49,11 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
   - Windows: 
     - `> .\venv\Scripts\activate.bat`
     ```
-    $ pip install -r requirements.txt
-    $ python run.py [<OPTIONS>] FILENAME
+    (venv) $ pip install -r requirements.txt
+    (venv) $ python run.py [<OPTIONS>] FILENAME
     ```
 - Binary:
-  - TBD, hopefully just download a binary for your platform
+  - TBD, just download a binary for your platform
 
 ## Usage:
 - CLI
@@ -66,7 +74,7 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
   - TBD, Double click the gui binary and follow the instructions.
 
 ## Building
-- `$ pyinstaller run.py --clean -F`
+- `(venv) $ pyinstaller run.py --clean -F`
 
 ## License
 [MIT](./LICENSE) &copy; 2019 Sebastian Safari

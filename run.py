@@ -2,4 +2,7 @@
 from simpleshare import cli_main
 
 if __name__ == "__main__":
-    cli_main()
+    try:
+        cli_main()
+    except KeyboardInterrupt:
+        exit(0)

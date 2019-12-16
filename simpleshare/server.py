@@ -5,7 +5,7 @@ import struct
 import time
 
 
-def broadcast_info(my_ip, mcastip, fn, port):
+def broadcast_info(my_ip, mcastip, fn, port, dport):
     print("Broadcasting.")
     # 24 & 5 for 2 mins
     tries = 15
@@ -18,7 +18,7 @@ def broadcast_info(my_ip, mcastip, fn, port):
 
     for t in range(tries):  # run for 2 mins ( delay*tries=x, x/60=ans )
         data = (
-            f"ip: {str(my_ip)}, filename: {fn}, dataport: {port+1}"
+            f"ip: {str(my_ip)}, filename: {fn}, dataport: {dport}"
         ).encode("utf-8")
         s.sendto(data, (mcastip, port))
         print("Sending data... " + str(tries-t) + " tries left.")
@@ -27,14 +27,14 @@ def broadcast_info(my_ip, mcastip, fn, port):
 
 
 def wait_for_replies(my_ip, fn, port):
-    print(f"{my_ip} {fn} {port}")
+    # print(f"{my_ip} {fn} {port}")
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
         s.bind((my_ip, port))
 
         # Wait for a reply & send the info
         while True:
             data, addr = s.recvfrom(1024)
-            return f"{addr}:" + str(data.decode("utf-8"))
+            return f"{addr[0]}: " + str(data.decode("utf-8"))
 # wait_for_replies
 
 # sample code to test multicast

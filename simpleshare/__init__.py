@@ -22,7 +22,8 @@ def cli_main():
         # Send "broadcast" every 5 secs, this is the name of it, and what port
         #  to send your replies to.
         broadcast_thread = Thread(target=broadcast_info, args=(
-            flags["ip"], MCASTGROUP, flags["filename"], PORT))
+            flags["ip"], MCASTGROUP, flags["filename"], PORT, PORT+1))
+        broadcast_thread.daemon = True
         broadcast_thread.start()
 
         # listen to replies, see if they want the file while the broadcast

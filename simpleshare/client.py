@@ -35,11 +35,10 @@ def reply_if_server_available(mcgroup, port):
         ans = input(f"Do you want to download {filename}? ")
         if ans.lower().startswith("y"):
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            print(filename.encode("utf-8"), (ip, port))
+            # print(filename.encode("utf-8"), (ip, port))
             s.sendto(filename.encode("utf-8"), (ip, port))
             break
-        else:
-            break
+
         # print(obj)
 
 

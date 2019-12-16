@@ -39,6 +39,8 @@ def get_my_ip():
 
 # get_my_ip
 
+# TODO: https://docs.python.org/3/library/argparse.html
+
 
 def parse_flags():
     flags = {"ServeType": "dir", "isServer": True, "filename": ".", "ip": None}
