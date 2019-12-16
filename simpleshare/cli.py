@@ -43,7 +43,8 @@ def get_my_ip():
 
 
 def parse_flags():
-    flags = {"ServeType": "dir", "isServer": True, "filename": ".", "ip": None}
+    flags = {"ServeType": "dir", "isServer": True,
+             "filename": "./test.txt", "ip": None}
 
     if len(sys.argv) < 2:
         print(help_message)
