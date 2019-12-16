@@ -4,7 +4,7 @@ import socket
 
 help_message = """Usage: python simpleshare.py [OPTION] FILENAME
 
-Local file sharing utility. Can be used as server and as client. 
+Local file sharing utility. Can be used as server and as client.
   GUI will be available. Make sure FILENAME is the last argument!
 
 Options:

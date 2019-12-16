@@ -1,11 +1,12 @@
 # simpleshare
 from os import path
 from threading import Thread
+import time
 
 from .cli import parse_flags
 from .util import is_port_open
-from .server import broadcast_info, wait_for_replies
-from .client import reply_if_server_available
+from .server import broadcast_info, wait_for_replies, send_file
+from .client import reply_if_server_available, recv_file
 
 # defaults
 PORT = 8139
@@ -35,16 +36,16 @@ def cli_main():
         # is active.
         # #TODO: Make this stop when the bcast thread stops...
         while broadcast_thread.is_alive():
-            foo = wait_for_replies(flags["ip"], flags["filename"], PORT+1)
-            print(f"reply: {foo}")
-            broadcast_thread.join()
-            # send file
+            reply = wait_for_replies(flags["ip"], flags["filename"], PORT+1)
+            req_fn = reply.split(":")[1]
+            print(f"reply: {req_fn}")
+            send_file(flags["ip"], flags["filename"], PORT+2)
 
-        # ## TEST
-        # sender(flags["filename"])
+        broadcast_thread.join()
     else:
-        reply_if_server_available(MCASTGROUP, PORT)
-        print("replied!")
-        # ## TEST
-        # listener(MCASTGROUP, PORT)
+        server_ip = reply_if_server_available(MCASTGROUP, PORT)
+        time.sleep(0.5)
+        print("Where would you like to put the new file? (incl. the name)")
+        newpath = input("> ")
+        recv_file(server_ip, PORT+2, newpath)
 # cli_main

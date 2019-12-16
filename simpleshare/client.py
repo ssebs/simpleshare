@@ -1,5 +1,4 @@
 # client.py
-
 import socket
 import struct
 
@@ -33,18 +32,26 @@ def reply_if_server_available(mcgroup, port):
         filename = str_data[1].split(":")[1].strip()
         port = int(str_data[2].split(":")[1].strip())
 
+        # todo: check if in VLI mode or GUI mode
         ans = input(f"Do you want to download {filename}? ")
         if ans.lower().startswith("y"):
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             # print(filename.encode("utf-8"), (ip, port))
             s.sendto(filename.encode("utf-8"), (ip, port))
-            break
-
-        # print(obj)
-
-
+            return ip
 # reply_if_server_available
 
+
+def recv_file(ip, port, newpath):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((ip, port))
+        s.send(b'Test?')
+        data = s.recv(1024)
+        # data = s.recv(1024).decode('utf-8')
+        # print(data)
+        with open(newpath, "wb") as f:
+            f.write(data)
+# recv_file
 
 # # sample code to test multicast
 # def listener(mcgroup, port):
@@ -67,6 +74,7 @@ def reply_if_server_available(mcgroup, port):
 #     while True:
 #         data = s.recv(1500)
 #         print(data.decode('utf-8'))
+
 
 # # CLI TEST to reply to server
 """

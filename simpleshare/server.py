@@ -37,9 +37,24 @@ def wait_for_replies(my_ip, fn, port):
             return f"{addr[0]}: " + str(data.decode("utf-8"))
 # wait_for_replies
 
+
+def send_file(my_ip, filename, port):
+    file_bin = open(filename, "rb")
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind(('', port))
+        s.listen(1)
+        print("Waiting for conn")
+        print(my_ip)
+        print(port)
+        c, addr = s.accept()
+        while True:
+            print("Connection from: " + str(addr))
+            c.send(file_bin.read())
+            c.close()
+            break
+# send_file
+
 # sample code to test multicast
-
-
 # def sender(mcgroup, port, fn):
 #     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 #     ttl_bin = struct.pack('@i', 2)
