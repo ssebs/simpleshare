@@ -74,6 +74,12 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
   - TBD, Double click the gui binary and follow the instructions.
 
 ## Building
+- Linux:
+  - `make cli`
+  - `make gui`
+- Windows:
+  - `.\Makefile.bat cli`
+  - `.\Makefile.bat gui`
 - `(venv) $ pyinstaller run.py --clean -F`
 
 ## License
