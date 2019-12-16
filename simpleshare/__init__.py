@@ -18,10 +18,9 @@ def cli_main():
     # print(flags)
     # flag defaults: {"ServeType": "file", "isServer": True, "filename": "."}
 
-    if not path.exists(flags["filename"]):
-        raise Exception(f"File does not exist at {flags['filename']}")
-
     if flags["isServer"]:
+        if not path.exists(flags["filename"]):
+            raise Exception(f"File does not exist at {flags['filename']}")
         # Check if another server is running
         pass
 
