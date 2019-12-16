@@ -1,8 +1,8 @@
 # run.py
-from simpleshare import cli_main
+from simpleshare import cli
 
 if __name__ == "__main__":
     try:
-        cli_main()
+        cli()
     except KeyboardInterrupt:
         exit(0)

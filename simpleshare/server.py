@@ -11,18 +11,18 @@ def broadcast_info(my_ip, mcastip, fn, port, dport):
     tries = 15
     delay = 1
 
-    # addrinfo = socket.getaddrinfo(mcastip, None)[0]
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     ttl_bin = struct.pack('@i', 20)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, ttl_bin)
     s.bind((my_ip, port))
+
     for t in range(tries):  # run for 2 mins ( delay*tries=x, x/60=ans )
         data = (
             f"ip: {str(my_ip)}, filename: {fn}, dataport: {dport}"
         ).encode("utf-8")
         s.sendto(data, (mcastip, port))
-        print("Sending data... " + str(tries-t) + " tries left.")
+        print("Sending broadcast... " + str(tries-t) + " tries left.")
         time.sleep(delay)
 # broadcast_info
 
@@ -44,13 +44,9 @@ def send_file(my_ip, filename, port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(('', port))
         s.listen(1)
-        print("Waiting for conn")
-        print(my_ip)
-        print(port)
         c, addr = s.accept()
-        while True:
-            print("Connection from: " + str(addr))
-            c.send(file_bin.read())
-            c.close()
-            break
+
+        print(f"Sending {filename} to {addr[0]}")
+        c.send(file_bin.read())
+        c.close()
 # send_file
