@@ -49,7 +49,7 @@ def cli_main(PORT, MCASTGROUP):
 
 def parse_flags():
     help_message = "Local file sharing utility. Can be used as server and as \
-        a client."
+        a client. Run this without any arguments to run GUI."
     parser = argparse.ArgumentParser(description=help_message)
 
     parser.add_argument("--type", action='store', default="client",
