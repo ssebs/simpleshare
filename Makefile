@@ -4,7 +4,7 @@ cli:
 	@echo "Building CLI..."
 	( \
 		source ./venv/bin/activate; \
-		pyinstaller run.py --clean -F -n simpleshare-cli; \
+		pyinstaller simpleshare.py --clean -F -n simpleshare-cli; \
 	)
 	@echo "Built files are in ./dist/"
 gui:

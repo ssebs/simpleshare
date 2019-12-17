@@ -1,4 +1,4 @@
-# run.py
+# simpleshare.py
 import sys
 import tkinter as tk
 
@@ -19,3 +19,4 @@ if __name__ == "__main__":
         except Exception as e:
             print(e)
             exit(0)
+# main
