@@ -45,10 +45,13 @@ def reply_if_server_available(mcgroup, port):
 def recv_file(ip, port, newpath):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((ip, port))
-        s.send(b'Test?')
-        data = s.recv(1024)
-        # data = s.recv(1024).decode('utf-8')
-        # print(data)
+        data_out = b""
+        # Add data for whole file, not just 1024 bits...
+        while True:
+            data = s.recv(1024)
+            if not data:
+                break
+            data_out += data
         with open(newpath, "wb") as f:
-            f.write(data)
+            f.write(data_out)
 # recv_file
