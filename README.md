@@ -60,7 +60,6 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
     - `> .\venv\Scripts\activate.bat`
     ```
     (venv) $ pip install -r requirements.txt
-    (venv) $ python run.py [<OPTIONS>] FILENAME
     ```
 - Binary:
   - TBD, just download a binary for your platform
@@ -68,29 +67,30 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
 ## Usage:
 - CLI
   ```
-  Usage: python simpleshare.py [<OPTION>] FILENAME
+  usage: simpleshare.py [-h] [--type {client,server}] [--ip IP] [FILENAME]
 
-  Local file sharing utility. Can be used as server and as client. GUI available.
-  
-  Options:
-  -s                   Server, use this option to serve the file/dir. (Default)
-  -c                   Client, use this option to be a client.
-  -f                   File type, serve a file.
-  -d                   Directory type, serve a dir. (Defaults to .)
-  
-  -h, --help, --usage  Print this help message
+  Local file sharing utility. Can be used as server and as a client. Run this
+  without any arguments to run GUI.
+
+  positional arguments:
+    FILENAME              Name of the file you want to share, if running as the
+                          server.
+
+  optional arguments:
+    -h, --help            show this help message and exit
+    --type {client,server}
+                          Type, how do you want to use this tool
+    --ip IP               IP address, only used if you're the server
   ```
 - GUI
   - TBD, Double click the gui binary and follow the instructions.
 
 ## Building
 - Linux:
-  - `make cli`
-  - `make gui`
+  - `$ make`
 - Windows:
-  - `.\Makefile.bat cli`
-  - `.\Makefile.bat gui`
-- `(venv) $ pyinstaller run.py --clean -F`
+  - `> .\Makefile.bat`
+- `(venv) $ pyinstaller simpleshare.py --clean -F`
 
 ## License
 [MIT](./LICENSE) &copy; 2019 Sebastian Safari
