@@ -17,19 +17,19 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
     - [x] Server: Share filename (Multicast)
     - [x] Client: Reply to server saying that you want the file (UDP)
     - [x] Server: Send file to client (TCP)
-  - [.] CLI
+  - [x] CLI
   - [ ] GUI
 - Server
   - [x] "Broadcast" (multicast) that you're sharing "x" file
   - [x] Have server send files if requested to IP found.
-  - [.] CLI
+  - [x] CLI
   - [ ] GUI
     - [ ] DnD
 - Client
   - [x] Listen to see if anyone is sharing files
   - [x] List available files
   - [x] Download files to specified file name/path
-  - [.] CLI
+  - [x] CLI
   - [ ] GUI
 - [x] Make this work with 1 file, 1 client
 - [ ] Make this work with 1 file, 2 clients
@@ -40,6 +40,11 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
 - [x] Binary output (.exe, .app, etc.)
 - [ ] Refactor + document
 - [ ] Unit Tests
+
+## Bugs:
+- [ ] Thread won't stop properly
+- [ ] Can't have 2 clients
+- [ ] ...
 
 ## Installation:
 - Source:

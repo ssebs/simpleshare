@@ -4,30 +4,27 @@ import socket
 from os import path
 from threading import Thread
 import time
+import argparse
 
 from .util import is_port_open
 from .server import broadcast_info, wait_for_replies, send_file
 from .client import reply_if_server_available, recv_file
 
 
-# TODO: https://docs.python.org/3/library/argparse.html
-
-
 def cli_main(PORT, MCASTGROUP):
     flags = parse_flags()
-    # print(flags)
-    # flag defaults: {"ServeType": "file", "isServer": True, "filename": "..."}
+    # flag defaults: {"type": "client", "filename": "...", "ip": "..."}
 
-    if flags["isServer"]:
-        if not path.exists(flags["filename"]):
-            raise Exception(f"File does not exist at {flags['filename']}")
+    if flags.type == "server":
+        if not path.exists(flags.filename):
+            raise Exception(f"File does not exist at {flags.filename}")
         # Check if another server is running
         pass
 
         # Send "broadcast" every 5 secs, this is the name of it, and what port
         #  to send your replies to.
         broadcast_thread = Thread(target=broadcast_info, args=(
-            flags["ip"], MCASTGROUP, flags["filename"], PORT, PORT+1))
+            flags.ip, MCASTGROUP, flags.filename, PORT, PORT+1))
         broadcast_thread.daemon = True
         broadcast_thread.start()
 
@@ -35,10 +32,10 @@ def cli_main(PORT, MCASTGROUP):
         # is active.
         # #TODO: Make this stop when the bcast thread stops...
         while broadcast_thread.is_alive():
-            reply = wait_for_replies(flags["ip"], flags["filename"], PORT+1)
+            reply = wait_for_replies(flags.ip, flags.filename, PORT+1)
             req_fn = reply.split(":")[1]
             # print(f"reply: {req_fn}")
-            send_file(flags["ip"], flags["filename"], PORT+2)
+            send_file(flags.ip, flags.filename, PORT+2)
 
         broadcast_thread.join()
     else:
@@ -50,66 +47,35 @@ def cli_main(PORT, MCASTGROUP):
 # cli_main
 
 
-# parse flag vars
-allowed_options = ["-s", "-c", "-f", "-d", "-ip", "-h", "--help", "--usage"]
-help_message = """Usage: python simpleshare.py [OPTION] FILENAME
-
-Local file sharing utility. Can be used as server and as client.
-  GUI will be available. Make sure FILENAME is the last argument!
-
-Options:
- -s                   Server, use this option to serve the file/dir. (Default)
- -c                   Client, use this option to be a client.
- -f                   File type, serve a file.
- -d                   Directory type, serve a dir. (Defaults to .)
- -ip                  Your local IP address you want to use. (-ip "1.2.3.4")
-
- -h, --help, --usage  Print this help message
-"""
-
-
 def parse_flags():
-    flags = {"ServeType": "dir", "isServer": True,
-             "filename": "./test.txt", "ip": None}
+    help_message = "Local file sharing utility. Can be used as server and as \
+        a client."
+    parser = argparse.ArgumentParser(description=help_message)
 
-    if len(sys.argv) < 2:
-        print(help_message)
-        raise Exception("Not enough parameters")
+    parser.add_argument("--type", action='store', default="client",
+                        choices=["client", "server"],
+                        help="Type, how do you want to use this tool",
+                        dest="type")
+    parser.add_argument("--ip", action='store', default="",
+                        help="IP address, only used if you're the server",
+                        dest="ip")
+    parser.add_argument("FILENAME", action='store',
+                        help="Name of the file you want to share, if running \
+                            as the server.",
+                        nargs="?")
 
-    for i, flag in enumerate(sys.argv[1:]):
-        if flag.startswith("-"):
-            if flag not in allowed_options:
-                print(help_message)
-                raise Exception("Flag does not exist.")
+    flags = parser.parse_args()
 
-            if flag == "-s":
-                flags["isServer"] = True
-            elif flag == "-c":
-                flags["isServer"] = False
-            elif flag == "-f":
-                flags["ServeType"] = "file"
-            elif flag == "-d":
-                flags["ServeType"] = "dir"
-            elif flag.startswith("-ip"):
-                flags["ip"] = sys.argv[1:][i+1]
-                continue
-            elif flag == "-h" or flag == "--help" or flag == "--usage":
-                print(help_message)
-                exit(0)
-        else:
-            flags["filename"] = flag.strip()
+    if flags.type == "server":
+        if not flags.FILENAME:
+            parser.error("You must supply a filename if running as a server!")
+        if flags.ip == "":
+            flags.ip = get_my_ip()
 
-    # if flags["isServer"] or True:
-    if flags["isServer"]:
-        if flags["ip"] is None:
-            flags["ip"] = get_my_ip()
-        try:
-            socket.inet_aton(flags["ip"])
-        except socket.error:
-            flags["ip"] = get_my_ip()
+    flags.filename = flags.FILENAME
 
+    # print(flags)
     return flags
-
 # parse_flags
 
 
