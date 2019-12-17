@@ -37,7 +37,7 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
 - [ ] Make this work with 1 dir, 2 clients
 - [ ] Make this work with 2 files (2 servers), 1 client
 - [ ] Make this work with 2 files (2 servers), 2 client
-- [x] Binary output
+- [x] Binary output (.exe, .app, etc.)
 - [ ] Refactor + document
 - [ ] Unit Tests
 
