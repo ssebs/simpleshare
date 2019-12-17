@@ -3,6 +3,6 @@
 IF "%1%"=="" (
     echo "Building Simpleshare..."
     .\venv\Scripts\activate.bat
-    pyinstaller simpleshare.py --clean -F -n simpleshare-cli
+    pyinstaller simpleshare\__main__.py --clean -F -n simpleshare.exe
     echo "Built files are in .\dist\"
 ) 

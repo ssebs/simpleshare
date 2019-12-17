@@ -6,9 +6,9 @@ from threading import Thread
 import time
 import argparse
 
-from .util import is_port_open
-from .server import broadcast_info, wait_for_replies, send_file
-from .client import reply_if_server_available, recv_file
+from simpleshare.util import is_port_open
+from simpleshare.server import broadcast_info, wait_for_replies, send_file
+from simpleshare.client import reply_if_server_available, recv_file
 
 
 def cli_main(PORT, MCASTGROUP):

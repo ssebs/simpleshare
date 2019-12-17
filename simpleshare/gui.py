@@ -17,7 +17,7 @@ class Simpleshare(tk.Frame):
 
 
 # If running the file directly
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = Simpleshare(master=root)
-    app.mainloop()
+# if __name__ == "__main__":
+#     root = tk.Tk()
+#     app = Simpleshare(master=root)
+#     app.mainloop()

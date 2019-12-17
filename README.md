@@ -90,7 +90,7 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
   - `$ make`
 - Windows:
   - `> .\Makefile.bat`
-- `(venv) $ pyinstaller simpleshare.py --clean -F`
+- `(venv) $ pyinstaller simpleshare/__main__.py --clean -F -n simpleshare`
 
 ## License
 [MIT](./LICENSE) &copy; 2019 Sebastian Safari
