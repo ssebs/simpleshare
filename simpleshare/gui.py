@@ -16,8 +16,42 @@ class Simpleshare(tk.Frame):
     # create_widgets
 
 
-# If running the file directly
-# if __name__ == "__main__":
-#     root = tk.Tk()
-#     app = Simpleshare(master=root)
-#     app.mainloop()
+# # frame structure / wireframe
+# page 1
+"""
+|------------------------------|
+|       simmpleshare           |
+|  -------------------------   |
+|  | "Upload" | "Download" |   | # on click of upload/download, open respective
+|  -------------------------   | #  "page" (frame)
+|                              |
+|------------------------------|
+"""
+# page 2 (Upload)
+"""
+|------------------------------|
+|       simmpleshare           |
+|    ------------------        |
+|    | Choose File... |        | # on click on choose file, filepicker appears
+|    ------------------        | #  and timeout starts
+|                              |
+|    Timeout: MM:SS            |
+|                              |
+|                              |
+|------------------------------|
+"""
+# page 3 (Download)
+"""
+|------------------------------|
+|       simmpleshare           |
+|                              |
+|      Files Available:        |
+|                              |
+|      ----------------        | # List filenames as the client can find them
+|      |  <Filename1> |        | #  on click of one, open file picker to save
+|      |  <Filename2> |        |
+|      ----------------        |
+|                              |
+|                              |
+|------------------------------|
+"""
