@@ -7,17 +7,25 @@ class Simpleshare(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master)
         self.master.title("Simpleshare")
-        self.grid(row=0, column=0, columnspan=2)
+        self.master.grid_columnconfigure(0, weight=1)
+        self.master.grid_rowconfigure(0, weight=1)
+
+        self.grid(row=0, column=0, sticky='n')
 
         self.lb_title = ttk.Label(self, text="Simpleshare")
-        self.frm_home = Home(self)
+        self.lb_title.config(font=(None, 15))
+
+        self.frm_home = Home(master=self)
         self.frm_upload = Upload(master=self)
         self.frm_download = Download(master=self)
 
-        self.lb_title.grid(row=1, column=0, columnspan=2, pady=10)
-        self.frm_home.grid(row=2, column=0, sticky='news')
-        self.frm_upload.grid(row=2, column=0, sticky='news')
-        self.frm_download.grid(row=2, column=0, sticky='news')
+        self.lb_title.grid(row=1, column=0, columnspan=3, pady=10)
+        self.frm_home.grid(row=2, column=0, columnspan=3, sticky='news')
+        self.frm_upload.grid(row=2, column=0, columnspan=3, sticky='news')
+        self.frm_download.grid(row=2, column=0, columnspan=3, sticky='news')
+
+        self.frm_home.grid_columnconfigure(1, weight=1)
+        self.frm_home.grid_rowconfigure(1, weight=1)
 
         self.raise_frame("home")
     # init
