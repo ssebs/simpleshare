@@ -122,9 +122,24 @@ class Upload(tk.Frame):
 class Download(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master)
-        self.test_text = ttk.Label(self, text="Test")
-        self.test_text.pack()
+        # self.test_text = ttk.Label(self, text="Test")
+        # self.test_text.pack()
+        self.create_widgets()
     # init
+
+    def create_widgets(self):
+        self.lb_files_avail = ttk.Label(self, text="Files available:")
+        self.listbox = tk.Listbox(self)
+
+        self.lb_files_avail.grid(row=0, column=0, columnspan=2)
+        self.listbox.grid(row=1, column=0, columnspan=2)
+        ttk.Separator(self, orient=tk.HORIZONTAL).grid(row=4,
+                                                       sticky="ew",
+                                                       pady=10,
+                                                       columnspan=2)
+
+    # create_widgets
+
 # Download
 
 
