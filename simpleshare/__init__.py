@@ -9,6 +9,8 @@ from simpleshare.cli import cli_main
 # defaults
 PORT = 8139
 MCASTGROUP = '239.0.0.68'
+WIDTH = 200
+HEIGHT = 300
 
 
 def main():
@@ -20,6 +22,7 @@ def main():
     else:
         try:
             root = tk.Tk()
+            root.geometry(f"{WIDTH}x{HEIGHT}")
             app = Simpleshare(master=root)
             app.mainloop()
         except Exception as e:
