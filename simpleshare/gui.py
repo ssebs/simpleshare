@@ -1,5 +1,6 @@
 # gui.py
 import tkinter as tk
+from tkinter.filedialog import askopenfilename
 import ttk
 
 
@@ -59,10 +60,10 @@ class Home(tk.Frame):
                                        command=self.show_download)
 
         # Layout
-        self.btn_upload.grid(row=1, column=0)
-        self.btn_download.grid(row=1, column=1)
+        self.btn_upload.grid(row=1, column=0, padx=5)
+        self.btn_download.grid(row=1, column=1, padx=5)
         ttk.Separator(self, orient=tk.HORIZONTAL).grid(row=4,
-                                                       sticky=tk.E+tk.W,
+                                                       sticky="ew",
                                                        pady=10,
                                                        columnspan=2)
     # create_widgets
@@ -85,20 +86,35 @@ class Upload(tk.Frame):
         tk.Frame.__init__(self, master)
 
         self.timeout_text = tk.StringVar(value="Timeout: 2 mins...")
+        self.filename_text = tk.StringVar(value="Select a file...")
         self.create_widgets()
     # init
 
     def create_widgets(self):
         self.btn_file = ttk.Button(self, command=self.handle_btn_file,
                                    text="Select File...")
-        self.btn_file.pack()
         self.lb_timout = ttk.Label(self, textvariable=self.timeout_text)
-        self.lb_timout.pack()
+        self.lb_filename = ttk.Label(self, textvariable=self.filename_text)
+        self.btn_share = ttk.Button(self, command=self.handle_btn_share,
+                                    text="Share")
+
+        self.btn_file.grid(row=0, column=0, padx=5)
+        self.lb_filename.grid(row=0, column=1, padx=5)
+        self.btn_share.grid(row=1, column=0, columnspan=2, pady=10)
+        self.lb_timout.grid(row=2, column=0, columnspan=2)
     # create_widgets
 
     def handle_btn_file(self):
         print("Select file?")
-        self.timeout_text.set("foo")
+        filename = askopenfilename()
+        if not filename:
+            return
+        self.filename_text.set(filename.split("/")[-1])
+    # handle_btn_file
+
+    def handle_btn_share(self):
+        print(f"Sharing {self.filename_text.get()} for 2 mins")
+    # handle_btn_share
 
 # Upload
 
