@@ -98,5 +98,16 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
   - `> .\Makefile.bat`
 - `(venv) $ pyinstaller simpleshare/__main__.py --clean -F -n simpleshare`
 
+## Screenshots
+
+### Home
+![home](img/home.png)
+
+### Upload
+![upload](img/upload.png)
+
+### Download
+![download](img/download.png)
+
 ## License
 [MIT](./LICENSE) &copy; 2019 Sebastian Safari
