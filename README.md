@@ -46,7 +46,10 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
 ## Bugs:
 - [ ] Thread won't stop properly
 - [ ] Can't have 2 clients
-- [ ] GUI Styling
+- [ ] GUI 
+  - [ ] Styling
+  - [ ] Choose IP if more than 1 available
+  - [ ] Choose IP should have entry too
 
 ## Installation:
 - Source:
