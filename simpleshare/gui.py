@@ -60,12 +60,8 @@ class Home(tk.Frame):
                                        command=self.show_download)
 
         # Layout
-        self.btn_upload.grid(row=1, column=0, padx=5)
-        self.btn_download.grid(row=1, column=1, padx=5)
-        ttk.Separator(self, orient=tk.HORIZONTAL).grid(row=4,
-                                                       sticky="ew",
-                                                       pady=10,
-                                                       columnspan=2)
+        self.btn_upload.grid(row=1, column=0, padx=5, sticky="n")
+        self.btn_download.grid(row=1, column=1, padx=5, sticky="n")
     # create_widgets
 
     def show_upload(self):
@@ -122,8 +118,6 @@ class Upload(tk.Frame):
 class Download(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master)
-        # self.test_text = ttk.Label(self, text="Test")
-        # self.test_text.pack()
         self.create_widgets()
     # init
 
@@ -133,17 +127,13 @@ class Download(tk.Frame):
                                    command=lambda: self.add_to_list("Test"))
         self.btn_download = ttk.Button(self, text="Download",
                                        command=self.download_file)
-        self.listbox = tk.Listbox(self)
+        self.listbox = tk.Listbox(self, height=5)
         self.listbox.bind("<Double-Button-1>", lambda x: self.download_file())
 
-        self.lb_files_avail.grid(row=0, column=0, columnspan=2)
-        self.btn_test.grid(row=1, column=0, columnspan=2)
-        self.listbox.grid(row=2, column=0, columnspan=2)
-        ttk.Separator(self, orient=tk.HORIZONTAL).grid(row=3,
-                                                       sticky="ew",
-                                                       pady=10,
-                                                       columnspan=2)
-        self.btn_download.grid(row=4, column=0, columnspan=2)
+        self.lb_files_avail.grid(row=0, column=0, columnspan=1)
+        self.btn_test.grid(row=0, column=1, columnspan=1)
+        self.listbox.grid(row=1, column=0, columnspan=2, pady=5)
+        self.btn_download.grid(row=2, column=0, columnspan=2)
     # create_widgets
 
     def add_to_list(self, item):
@@ -196,6 +186,9 @@ class Download(tk.Frame):
 |      |  <Filename2> |        |
 |      ----------------        |
 |                              |
+|       --------------         |
+|       |  Download  |         |
+|       --------------         |
 |                              |
 |------------------------------|
 """
