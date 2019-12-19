@@ -7,7 +7,7 @@ import time
 
 def broadcast_info(my_ip, mcastip, fn, port, dport):
     print("Broadcasting.")
-    tries = 10
+    tries = 120
 
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     ttl_bin = struct.pack('@i', 20)
