@@ -8,7 +8,7 @@ import argparse
 
 from simpleshare.util import is_port_open
 from simpleshare.server import broadcast_info, wait_for_replies, send_file
-from simpleshare.client import reply_if_server_available, recv_file
+from simpleshare.client import get_filename, reply, recv_file
 
 
 def cli_main(PORT, MCASTGROUP):
@@ -41,12 +41,18 @@ def cli_main(PORT, MCASTGROUP):
         r_t = Thread(target=reply_n_send)
         r_t.start()
     else:
-        server_ip, filename = reply_if_server_available(MCASTGROUP, PORT)
+        server_ip, filename = get_filename(MCASTGROUP, PORT)
+
+        ans = input(f"Do you want to download {filename}? ")
+        if ans.lower().startswith("y"):
+            reply(server_ip, PORT+1, filename)
+
         time.sleep(0.5)
         print("Where would you like to put the new file? (incl. the name)")
         newpath = input("> ")
         if newpath == "":
             newpath = filename
+
         recv_file(server_ip, PORT+2, newpath)
 # cli_main
 
