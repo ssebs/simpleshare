@@ -23,7 +23,7 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
   - [x] "Broadcast" (multicast) that you're sharing "x" file
   - [x] Have server send files if requested to IP found.
   - [x] CLI
-  - [ ] GUI
+  - [x] GUI
     - [ ] DnD
     - [ ] Custom timout
 - Client
@@ -31,7 +31,7 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
   - [x] List available files
   - [x] Download files to specified file name/path
   - [x] CLI
-  - [ ] GUI
+  - [x] GUI
 - [x] Make this work with 1 file, 1 client
 - [ ] Make this work with 1 file, 2 clients
 - [ ] Make this work with 1 dir, 1 client

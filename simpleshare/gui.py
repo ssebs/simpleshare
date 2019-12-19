@@ -1,6 +1,6 @@
 # gui.py
 import tkinter as tk
-from tkinter.filedialog import askopenfilename
+from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter import messagebox
 import ttk
 
@@ -12,7 +12,7 @@ from threading import Thread
 
 from simpleshare.util import is_port_open, MCASTGROUP, PORT
 from simpleshare.server import broadcast_info, wait_for_replies, send_file
-from simpleshare.client import reply_if_server_available, recv_file
+from simpleshare.client import get_filename, recv_file, reply
 
 
 class Simpleshare(tk.Frame):
@@ -164,32 +164,45 @@ class Download(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master)
         self.create_widgets()
+
+        self.server_ip = None
+
+        def listen():
+            server_ip, filename = get_filename(MCASTGROUP, PORT)
+            self.listbox.insert(tk.END, filename)
+            self.server_ip = server_ip
+        # listen
+
+        l_t = Thread(target=listen)
+        l_t.start()
+
     # init
 
     def create_widgets(self):
         self.lb_files_avail = ttk.Label(self, text="Files available:")
-        self.btn_test = ttk.Button(self, text="Add test item",
-                                   command=lambda: self.add_to_list("Test"))
         self.btn_download = ttk.Button(self, text="Download",
                                        command=self.download_file)
         self.listbox = tk.Listbox(self, height=5)
         self.listbox.bind("<Double-Button-1>", lambda x: self.download_file())
 
         self.lb_files_avail.grid(row=0, column=0, columnspan=1)
-        self.btn_test.grid(row=0, column=1, columnspan=1)
         self.listbox.grid(row=1, column=0, columnspan=2, pady=5)
         self.btn_download.grid(row=2, column=0, columnspan=2)
     # create_widgets
-
-    def add_to_list(self, item):
-        self.listbox.insert(tk.END, item)
-    # add_to_list
 
     def download_file(self):
         if self.listbox.curselection() == ():
             return
         filename = self.listbox.get(self.listbox.curselection())
-        print(filename)
+        print(f"Downloading {filename}")
+
+        reply(self.server_ip, PORT+1, filename)
+        time.sleep(0.5)
+        newpath = asksaveasfilename()
+        if not newpath:
+            return
+        recv_file(self.server_ip, PORT+2, newpath)
+        messagebox.showinfo("Done", f"Downloaded {filename}!")
     # download_file
 
 # Download
