@@ -46,7 +46,7 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
 ## Bugs:
 - [ ] Thread won't stop properly
 - [ ] Can't have 2 clients
-- [ ] ...
+- [ ] GUI Styling
 
 ## Installation:
 - Source:
@@ -59,7 +59,7 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
   - Linux: 
     - `$ source ./venv/bin/activate`
   - Windows: 
-    - `> .\venv\Scripts\activate.bat`
+    - `> .\venv\Scripts\activate`
     ```
     (venv) $ pip install -r requirements.txt
     ```
