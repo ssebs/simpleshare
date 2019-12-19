@@ -33,7 +33,7 @@ def main():
     else:
         try:
             root = tk.Tk()
-            center_window(root, 250, 150)
+            center_window(root, 250, 200)
             root.minsize(200, 100)
             # icon doesn't work when built...
             # cwd = sys.path[0]
