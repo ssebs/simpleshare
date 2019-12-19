@@ -8,8 +8,10 @@ import time
 def broadcast_info(my_ip, mcastip, fn, port, dport):
     print("Broadcasting.")
     # 24 & 5 for 2 mins
-    tries = 15
-    delay = 1
+    # tries = 15
+    # delay = 1
+    tries = 24
+    delay = 5
 
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     ttl_bin = struct.pack('@i', 20)

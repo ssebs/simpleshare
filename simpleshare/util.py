@@ -1,6 +1,10 @@
 # util.py
 import socket
 
+# defaults
+PORT = 8139
+MCASTGROUP = '239.0.0.68'
+
 
 def is_port_open(ip, port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

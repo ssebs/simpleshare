@@ -5,11 +5,7 @@ import tkinter as tk
 
 from simpleshare.gui import Simpleshare
 from simpleshare.cli import cli_main
-
-
-# defaults
-PORT = 8139
-MCASTGROUP = '239.0.0.68'
+from simpleshare.util import MCASTGROUP, PORT
 
 
 def center_window(window, width, height):

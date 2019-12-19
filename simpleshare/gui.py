@@ -1,6 +1,7 @@
 # gui.py
 import tkinter as tk
 from tkinter.filedialog import askopenfilename
+from tkinter import messagebox
 import ttk
 
 import sys
@@ -9,7 +10,7 @@ import time
 from os import path
 from threading import Thread
 
-from simpleshare.util import is_port_open
+from simpleshare.util import is_port_open, MCASTGROUP, PORT
 from simpleshare.server import broadcast_info, wait_for_replies, send_file
 from simpleshare.client import reply_if_server_available, recv_file
 
@@ -94,11 +95,11 @@ class Home(tk.Frame):
 class Upload(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master)
+
         self.my_ip = None
+        self.filename = None
         self.timeout_text = tk.StringVar(value="Timeout: 2 mins...")
         self.filename_text = tk.StringVar(value="Select a file...")
-
-        # self.frm_ip = IPChooser(self.master.master)
 
         self.create_widgets()
     # init
@@ -123,10 +124,33 @@ class Upload(tk.Frame):
         if not filename:
             return
         self.filename_text.set(filename.split("/")[-1])
+        self.filename = filename
     # handle_btn_file
 
     def handle_btn_share(self):
+        if not self.filename:
+            messagebox.showerror("Error", "You must select a filename")
+            return
+
         print(f"Sharing {self.filename_text.get()} for 2 mins")
+        # Send "broadcast" every 5 secs, this is the name of it, and what port
+        #  to send your replies to.
+        broadcast_thread = Thread(target=broadcast_info, args=(
+            self.my_ip, MCASTGROUP, self.filename_text.get(), PORT, PORT+1))
+        broadcast_thread.daemon = True
+        broadcast_thread.start()
+
+        # listen to replies, see if they want the file while the broadcast
+        # is active.
+        # #TODO: Make this stop when the bcast thread stops...
+        while broadcast_thread.is_alive():
+            reply = wait_for_replies(self.my_ip, self.filename_text.get(),
+                                     PORT+1)
+            req_fn = reply.split(":")[1]
+            # print(f"reply: {req_fn}")
+            send_file(self.my_ip, self.filename_text.get(), PORT+2)
+
+        broadcast_thread.join()
     # handle_btn_share
 
     def set_ip(self, ip):
@@ -276,7 +300,7 @@ class IPChooser(tk.Frame):
 |      ----------------        | # List IP addresses
 |      |  <IPAddress> |        |
 |      |  <IPAddress> |        |
-|      ----------------        |
+|      ----------------        | # eventually add an Entry for the IP
 |       --------------         |
 |       |   Choose   |         |
 |       --------------         |

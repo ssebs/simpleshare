@@ -48,8 +48,9 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
 - [ ] Can't have 2 clients
 - [ ] GUI 
   - [ ] Styling
-  - [ ] Choose IP if more than 1 available
+  - [ ] Only Choose IP if more than 1 available
   - [ ] Choose IP should have entry too
+  - [ ] Share Thread issues
 
 ## Installation:
 - Source:
