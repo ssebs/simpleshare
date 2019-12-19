@@ -76,9 +76,11 @@ class Home(tk.Frame):
 
     def show_upload(self):
         print("Switch to upload page")
-        ip = IPChooser(self.master)
-        print(ip)
-        # self.master.raise_frame("upload")
+        frm_ip = IPChooser(self.master)
+        self.master.wait_window(frm_ip.top)
+        print(frm_ip.value)
+        self.master.frm_upload.set_ip(frm_ip.value)
+        self.master.raise_frame("upload")
     # show_upload
 
     def show_download(self):
@@ -92,7 +94,7 @@ class Home(tk.Frame):
 class Upload(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master)
-
+        self.my_ip = None
         self.timeout_text = tk.StringVar(value="Timeout: 2 mins...")
         self.filename_text = tk.StringVar(value="Select a file...")
 
@@ -126,6 +128,10 @@ class Upload(tk.Frame):
     def handle_btn_share(self):
         print(f"Sharing {self.filename_text.get()} for 2 mins")
     # handle_btn_share
+
+    def set_ip(self, ip):
+        self.my_ip = ip
+    # set_ip
 
 # Upload
 
@@ -169,6 +175,12 @@ class IPChooser(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master)
         top = self.top = tk.Toplevel(master.master)
+        self.ip = None
+
+        # import center_window only if choosing IP
+        from simpleshare import center_window
+        center_window(self.top, 200, 200)
+
         self.ip_list = socket.gethostbyname_ex(socket.gethostname())[2]
         self.create_widgets()
 
@@ -176,8 +188,17 @@ class IPChooser(tk.Frame):
             self.listbox.insert(tk.END, ip)
     # init
 
+    def cleanup(self):
+        if not self.ip:
+            raise Exception("IP not chosen")
+
+        self.value = self.ip
+        self.top.destroy()
+        return self.value
+    # cleanup
+
     def create_widgets(self):
-        print(self.ip_list)
+        # print(self.ip_list)
         self.lb_ip = ttk.Label(self.top, text="Pick an IP address")
         self.listbox = tk.Listbox(self.top, height=len(self.ip_list))
         self.btn_choose_ip = ttk.Button(self.top, text="Choose",
@@ -185,16 +206,21 @@ class IPChooser(tk.Frame):
 
         self.listbox.bind("<Double-Button-1>", lambda x: self.choose_ip())
 
-        self.lb_ip.grid(row=0, column=0)
-        self.listbox.grid(row=1, column=0, pady=5)
-        self.btn_choose_ip.grid(row=2, column=0)
+        self.lb_ip.pack()
+        self.listbox.pack(pady=5)
+        self.btn_choose_ip.pack()
+
+        # self.lb_ip.grid(row=0, column=0)
+        # self.listbox.grid(row=1, column=0, pady=5)
+        # self.btn_choose_ip.grid(row=2, column=0)
     # create_widgets
 
     def choose_ip(self):
         if self.listbox.curselection() == ():
             return
-        ip = self.listbox.get(self.listbox.curselection())
-        print(ip)
+        self.ip = self.listbox.get(self.listbox.curselection())
+        # print(self.ip)
+        self.cleanup()
     # btn_choose_ip
 
 # IPChooser
