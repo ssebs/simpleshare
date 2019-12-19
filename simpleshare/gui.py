@@ -133,24 +133,24 @@ class Upload(tk.Frame):
             return
 
         print(f"Sharing {self.filename_text.get()} for 2 mins")
-        # Send "broadcast" every 5 secs, this is the name of it, and what port
-        #  to send your replies to.
-        broadcast_thread = Thread(target=broadcast_info, args=(
-            self.my_ip, MCASTGROUP, self.filename_text.get(), PORT, PORT+1))
-        broadcast_thread.daemon = True
-        broadcast_thread.start()
 
-        # listen to replies, see if they want the file while the broadcast
-        # is active.
-        # #TODO: Make this stop when the bcast thread stops...
-        while broadcast_thread.is_alive():
+        def broadcast():
+            broadcast_info(self.my_ip, MCASTGROUP, self.filename_text.get(),
+                           PORT, PORT+1)
+        # broadcast
+
+        def reply_n_send():
             reply = wait_for_replies(self.my_ip, self.filename_text.get(),
                                      PORT+1)
             req_fn = reply.split(":")[1]
-            # print(f"reply: {req_fn}")
-            send_file(self.my_ip, self.filename_text.get(), PORT+2)
+            send_file(self.my_ip, self.filename, PORT+2)
+        # reply_n_send
 
-        broadcast_thread.join()
+        b_t = Thread(target=broadcast)
+        b_t.start()
+
+        r_t = Thread(target=reply_n_send)
+        r_t.start()
     # handle_btn_share
 
     def set_ip(self, ip):

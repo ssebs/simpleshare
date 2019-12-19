@@ -21,28 +21,32 @@ def cli_main(PORT, MCASTGROUP):
         # Check if another server is running
         pass
 
-        # Send "broadcast" every 5 secs, this is the name of it, and what port
-        #  to send your replies to.
-        broadcast_thread = Thread(target=broadcast_info, args=(
-            flags.ip, MCASTGROUP, flags.filename, PORT, PORT+1))
-        broadcast_thread.daemon = True
-        broadcast_thread.start()
+        print(f"Sharing {flags.filename} for 2 mins")
 
-        # listen to replies, see if they want the file while the broadcast
-        # is active.
-        # #TODO: Make this stop when the bcast thread stops...
-        while broadcast_thread.is_alive():
-            reply = wait_for_replies(flags.ip, flags.filename, PORT+1)
+        def broadcast():
+            broadcast_info(flags.ip, MCASTGROUP, flags.filename,
+                           PORT, PORT+1)
+        # broadcast
+
+        def reply_n_send():
+            reply = wait_for_replies(flags.ip, flags.filename,
+                                     PORT+1)
             req_fn = reply.split(":")[1]
-            # print(f"reply: {req_fn}")
             send_file(flags.ip, flags.filename, PORT+2)
+        # reply_n_send
 
-        broadcast_thread.join()
+        b_t = Thread(target=broadcast)
+        b_t.start()
+
+        r_t = Thread(target=reply_n_send)
+        r_t.start()
     else:
-        server_ip = reply_if_server_available(MCASTGROUP, PORT)
+        server_ip, filename = reply_if_server_available(MCASTGROUP, PORT)
         time.sleep(0.5)
         print("Where would you like to put the new file? (incl. the name)")
         newpath = input("> ")
+        if newpath == "":
+            newpath = filename
         recv_file(server_ip, PORT+2, newpath)
 # cli_main
 

@@ -38,7 +38,7 @@ def reply_if_server_available(mcgroup, port):
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             # print(filename.encode("utf-8"), (ip, port))
             s.sendto(filename.encode("utf-8"), (ip, port))
-            return ip
+            return (ip, filename)
 # reply_if_server_available
 
 
