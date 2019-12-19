@@ -1,9 +1,9 @@
 # cli.py - parse the cli flags
 import sys
 import socket
+import time
 from os import path
 from threading import Thread
-import time
 import argparse
 
 from simpleshare.util import is_port_open
