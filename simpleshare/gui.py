@@ -129,16 +129,33 @@ class Download(tk.Frame):
 
     def create_widgets(self):
         self.lb_files_avail = ttk.Label(self, text="Files available:")
+        self.btn_test = ttk.Button(self, text="Add test item",
+                                   command=lambda: self.add_to_list("Test"))
+        self.btn_download = ttk.Button(self, text="Download",
+                                       command=self.download_file)
         self.listbox = tk.Listbox(self)
+        self.listbox.bind("<Double-Button-1>", lambda x: self.download_file())
 
         self.lb_files_avail.grid(row=0, column=0, columnspan=2)
-        self.listbox.grid(row=1, column=0, columnspan=2)
-        ttk.Separator(self, orient=tk.HORIZONTAL).grid(row=4,
+        self.btn_test.grid(row=1, column=0, columnspan=2)
+        self.listbox.grid(row=2, column=0, columnspan=2)
+        ttk.Separator(self, orient=tk.HORIZONTAL).grid(row=3,
                                                        sticky="ew",
                                                        pady=10,
                                                        columnspan=2)
-
+        self.btn_download.grid(row=4, column=0, columnspan=2)
     # create_widgets
+
+    def add_to_list(self, item):
+        self.listbox.insert(tk.END, item)
+    # add_to_list
+
+    def download_file(self):
+        if self.listbox.curselection() == ():
+            return
+        filename = self.listbox.get(self.listbox.curselection())
+        print(filename)
+    # download_file
 
 # Download
 

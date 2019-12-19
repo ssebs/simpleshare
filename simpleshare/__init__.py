@@ -35,7 +35,7 @@ def main():
             root = tk.Tk()
             center_window(root, 250, 150)
             root.minsize(200, 100)
-            # icon doesn't work when built.
+            # icon doesn't work when built...
             # cwd = sys.path[0]
             # root.iconphoto(True, tk.PhotoImage(
             #     file=os.path.join(cwd,
@@ -43,6 +43,8 @@ def main():
 
             app = Simpleshare(master=root)
             app.mainloop()
+        except KeyboardInterrupt:
+            exit(0)
         except Exception as e:
             print(e)
             exit(0)
