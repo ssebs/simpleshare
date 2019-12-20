@@ -1,5 +1,10 @@
 # __main__
 import simpleshare
 
-if __name__ == "__main__":
+
+def main():
     simpleshare.main()
+
+
+if __name__ == "__main__":
+    main()

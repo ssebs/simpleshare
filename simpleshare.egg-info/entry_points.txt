@@ -1,0 +1,6 @@
+[console_scripts]
+simpleshare = simpleshare.__main__:main
+
+[gui_scripts]
+simpleshare = simpleshare.__main__:main
+

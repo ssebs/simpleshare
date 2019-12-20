@@ -17,7 +17,11 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
     (venv) $ pip install -r requirements.txt
     ```
 - Binary:
-  - TBD, just download a binary for your platform
+  - Download a binary for your platform in the [releases page](https://github.com/ssebs/simpleshare/releases).
+
+- PyPI:
+  - `$ pip install simpleshare`
+  - `$ simpleshare`
 
 ## Usage:
 - CLI
