@@ -5,9 +5,8 @@ import struct
 import time
 
 
-def broadcast_info(my_ip, mcastip, fn, port, dport):
+def broadcast_info(my_ip, mcastip, fn, port, dport, timeout):
     print("Broadcasting.")
-    tries = 120
 
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     ttl_bin = struct.pack('@i', 20)
@@ -15,12 +14,12 @@ def broadcast_info(my_ip, mcastip, fn, port, dport):
     s.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, ttl_bin)
     s.bind((my_ip, port))
 
-    for t in range(tries):
+    for t in range(timeout):
         data = (
             f"ip: {str(my_ip)}, filename: {fn}, dataport: {dport}"
         ).encode("utf-8")
         s.sendto(data, (mcastip, port))
-        print("Sending broadcast... " + str(tries-t) + " tries left.")
+        print("Sending broadcast... " + str(timeout-t) + " seconds left.")
         time.sleep(1)
     print("Broadcast done")
 # broadcast_info

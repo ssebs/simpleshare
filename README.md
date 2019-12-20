@@ -13,7 +13,7 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
     - `$ source ./venv/bin/activate`
   - Windows: 
     - `> .\venv\Scripts\activate`
-    ```
+  - ```
     (venv) $ pip install -r requirements.txt
     ```
 - Binary:

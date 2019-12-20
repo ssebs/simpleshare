@@ -25,7 +25,7 @@ def cli_main(PORT, MCASTGROUP):
 
         def broadcast():
             broadcast_info(flags.ip, MCASTGROUP, flags.filename,
-                           PORT, PORT+1)
+                           PORT, PORT+1, 120)
         # broadcast
 
         def reply_n_send():

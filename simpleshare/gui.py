@@ -109,7 +109,9 @@ class Upload(tk.Frame):
 
         self.my_ip = None
         self.filename = None
-        self.timeout_text = tk.StringVar(value="Timeout: 2 mins...")
+        self.timeout = 10
+        t_text = f"Timeout: {self.timeout} seconds..."
+        self.timeout_text = tk.StringVar(value=t_text)
         self.filename_text = tk.StringVar(value="Select a file...")
 
         self.create_widgets()
@@ -143,11 +145,11 @@ class Upload(tk.Frame):
             messagebox.showerror("Error", "You must select a filename")
             return
 
-        print(f"Sharing {self.filename_text.get()} for 2 mins")
+        print(f"Sharing {self.filename_text.get()} for {self.timeout} seconds")
 
         def broadcast():
             broadcast_info(self.my_ip, MCASTGROUP, self.filename_text.get(),
-                           PORT, PORT+1)
+                           PORT, PORT+1, self.timeout)
         # broadcast
 
         def reply_n_send():
@@ -162,11 +164,19 @@ class Upload(tk.Frame):
 
         r_t = Thread(target=reply_n_send)
         r_t.start()
+
+        self.update_timeout_text(self.timeout)
     # handle_btn_share
 
     def set_ip(self, ip):
         self.my_ip = ip
     # set_ip
+
+    def update_timeout_text(self, count):
+        self.timeout_text.set(f"Timeout: {count} seconds...")
+        if count > 0:
+            self.master.master.after(1000, self.update_timeout_text, count-1)
+    # update_timeout_text
 
 # Upload
 
