@@ -80,8 +80,6 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
   - [x] GUI
 - [x] Make this work with 1 file, 1 client
 - [ ] Make this work with 1 file, 2 clients
-- [ ] Make this work with 1 dir, 1 client
-- [ ] Make this work with 1 dir, 2 clients
 - [ ] Make this work with 2 files (2 servers), 1 client
 - [ ] Make this work with 2 files (2 servers), 2 client
 - [x] Binary output (.exe, .app, etc.)
@@ -90,9 +88,10 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
 - [ ] Unit Tests
 
 ## Bugs:
-- [ ] Thread won't stop properly
+- [ ] Threads won't stop properly
 - [ ] Can't have 2 clients
-- [ ] GUI 
+- [ ] Can't have 2 servers
+- GUI 
   - [ ] Styling
   - [x] Only Choose IP if more than 1 available
   - [ ] Share Thread issues
