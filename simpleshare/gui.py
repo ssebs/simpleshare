@@ -77,10 +77,21 @@ class Home(tk.Frame):
 
     def show_upload(self):
         print("Switch to upload page")
-        frm_ip = IPChooser(self.master)
-        self.master.wait_window(frm_ip.top)
-        print(frm_ip.value)
-        self.master.frm_upload.set_ip(frm_ip.value)
+        ip = None
+        try:
+            with socket.socket() as s:
+                s.connect(("google.com", 80))
+                ip = s.getsockname()[0]
+                print(ip)
+                self.master.frm_upload.set_ip(ip)
+        except Exception:
+            # IP chooser if you can't get to google
+            frm_ip = IPChooser(self.master)
+            self.master.wait_window(frm_ip.top)
+            ip = frm_ip.value
+            print(ip)
+            self.master.frm_upload.set_ip(ip)
+
         self.master.raise_frame("upload")
     # show_upload
 

@@ -90,20 +90,27 @@ def parse_flags():
 
 
 def get_my_ip():
-    my_ips = socket.gethostbyname_ex(socket.gethostname())[2]
-
-    print("Pick an IP address from the list below:")
-    for i, ip in enumerate(my_ips):
-        print(f"{i+1}: {ip}")
-
-    choice = input("> ")
     try:
-        choice = int(choice)
+        with socket.socket() as s:
+            s.connect(("google.com", 80))
+            ip = s.getsockname()[0]
+            print(ip)
+            return ip
     except Exception:
-        print("Not a number")
-        exit(1)
+        my_ips = socket.gethostbyname_ex(socket.gethostname())[2]
 
-    if choice <= len(my_ips):
-        return my_ips[choice - 1]
+        print("Pick an IP address from the list below:")
+        for i, ip in enumerate(my_ips):
+            print(f"{i+1}: {ip}")
+
+        choice = input("> ")
+        try:
+            choice = int(choice)
+        except Exception:
+            print("Not a number")
+            exit(1)
+
+        if choice <= len(my_ips):
+            return my_ips[choice - 1]
 
 # get_my_ip

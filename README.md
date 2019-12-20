@@ -1,56 +1,5 @@
 # simpleshare
-A local file sharing utility written in Python. Uses multicast UDP to share the files, and HTTP to transfer them.
-
-## Goal:
-- Single binary output
-- Cross platform
-- CLI
-  - Args for the file name
-- GUI
-  - DnD support. 
-- Once file is shared as server, client app on same network will be able to see that "someone" is sharing, and download the file.
-- Folder support
-
-## TODO:
-- [x] Structure program
-  - [x] 3 connections
-    - [x] Server: Share filename (Multicast)
-    - [x] Client: Reply to server saying that you want the file (UDP)
-    - [x] Server: Send file to client (TCP)
-  - [x] CLI
-  - [x] GUI
-- Server
-  - [x] "Broadcast" (multicast) that you're sharing "x" file
-  - [x] Have server send files if requested to IP found.
-  - [x] CLI
-  - [x] GUI
-    - [ ] DnD
-    - [ ] Custom timout
-- Client
-  - [x] Listen to see if anyone is sharing files
-  - [x] List available files
-  - [x] Download files to specified file name/path
-  - [x] CLI
-  - [x] GUI
-- [x] Make this work with 1 file, 1 client
-- [ ] Make this work with 1 file, 2 clients
-- [ ] Make this work with 1 dir, 1 client
-- [ ] Make this work with 1 dir, 2 clients
-- [ ] Make this work with 2 files (2 servers), 1 client
-- [ ] Make this work with 2 files (2 servers), 2 client
-- [x] Binary output (.exe, .app, etc.)
-  - [ ] Icon support
-- [ ] Refactor + document
-- [ ] Unit Tests
-
-## Bugs:
-- [ ] Thread won't stop properly
-- [ ] Can't have 2 clients
-- [ ] GUI 
-  - [ ] Styling
-  - [ ] Only Choose IP if more than 1 available
-  - [ ] Choose IP should have entry too
-  - [ ] Share Thread issues
+A local file sharing utility written in Python. Uses multicast UDP to share the list of files, and TCP to transfer the files themselves.
 
 ## Installation:
 - Source:
@@ -89,7 +38,7 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
     --ip IP               IP address, only used if you're the server
   ```
 - GUI
-  - TBD, Double click the gui binary and follow the instructions.
+  - Double click the exe / binary.
 
 ## Building
 - Linux:
@@ -99,7 +48,6 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
 - `(venv) $ pyinstaller simpleshare/__main__.py --clean -F -n simpleshare`
 
 ## Screenshots
-
 ### Home
 ![home](img/home.png)
 
@@ -108,6 +56,46 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
 
 ### Download
 ![download](img/download.png)
+
+## TODO:
+- [x] Structure program
+  - [x] 3 connections
+    - [x] Server: Share filename (Multicast)
+    - [x] Client: Reply to server saying that you want the file (UDP)
+    - [x] Server: Send file to client (TCP)
+  - [x] CLI
+  - [x] GUI
+- Server
+  - [x] "Broadcast" (multicast) that you're sharing "x" file
+  - [x] Have server send files if requested to IP found.
+  - [x] CLI
+  - [x] GUI
+    - [ ] DnD
+    - [ ] Custom timout
+- Client
+  - [x] Listen to see if anyone is sharing files
+  - [x] List available files
+  - [x] Download files to specified file name/path
+  - [x] CLI
+  - [x] GUI
+- [x] Make this work with 1 file, 1 client
+- [ ] Make this work with 1 file, 2 clients
+- [ ] Make this work with 1 dir, 1 client
+- [ ] Make this work with 1 dir, 2 clients
+- [ ] Make this work with 2 files (2 servers), 1 client
+- [ ] Make this work with 2 files (2 servers), 2 client
+- [x] Binary output (.exe, .app, etc.)
+  - [ ] Icon support
+- [ ] Refactor + document
+- [ ] Unit Tests
+
+## Bugs:
+- [ ] Thread won't stop properly
+- [ ] Can't have 2 clients
+- [ ] GUI 
+  - [ ] Styling
+  - [x] Only Choose IP if more than 1 available
+  - [ ] Share Thread issues
 
 ## License
 [MIT](./LICENSE) &copy; 2019 Sebastian Safari
