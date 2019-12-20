@@ -109,10 +109,11 @@ class Upload(tk.Frame):
 
         self.my_ip = None
         self.filename = None
-        self.timeout = 10
+        self.timeout = 120
         t_text = f"Timeout: {self.timeout} seconds..."
         self.timeout_text = tk.StringVar(value=t_text)
         self.filename_text = tk.StringVar(value="Select a file...")
+        self.timeout_sp_text = tk.StringVar(value=str(self.timeout))
 
         self.create_widgets()
     # init
@@ -121,14 +122,19 @@ class Upload(tk.Frame):
         self.btn_file = ttk.Button(self, command=self.handle_btn_file,
                                    text="Select File...")
         self.lb_timout = ttk.Label(self, textvariable=self.timeout_text)
+        self.sb_timeout = tk.Spinbox(self, from_=1, to=600,
+                                     textvariable=self.timeout_sp_text)
+        self.lb_timeout_txt = ttk.Label(self, text="Timeout: ")
         self.lb_filename = ttk.Label(self, textvariable=self.filename_text)
         self.btn_share = ttk.Button(self, command=self.handle_btn_share,
                                     text="Share")
 
         self.btn_file.grid(row=0, column=0, padx=5)
         self.lb_filename.grid(row=0, column=1, padx=5)
-        self.btn_share.grid(row=1, column=0, columnspan=2, pady=10)
-        self.lb_timout.grid(row=2, column=0, columnspan=2)
+        self.lb_timeout_txt.grid(row=1, column=0)
+        self.sb_timeout.grid(row=1, column=1)
+        self.btn_share.grid(row=2, column=0, columnspan=2, pady=10)
+        # self.lb_timout.grid(row=2, column=0, columnspan=2)
     # create_widgets
 
     def handle_btn_file(self):
@@ -145,6 +151,7 @@ class Upload(tk.Frame):
             messagebox.showerror("Error", "You must select a filename")
             return
 
+        self.timeout = int(self.timeout_sp_text.get())
         print(f"Sharing {self.filename_text.get()} for {self.timeout} seconds")
 
         def broadcast():
@@ -165,6 +172,7 @@ class Upload(tk.Frame):
         r_t = Thread(target=reply_n_send)
         r_t.start()
 
+        self.lb_timout.grid(row=3, column=0, columnspan=2)
         self.update_timeout_text(self.timeout)
     # handle_btn_share
 

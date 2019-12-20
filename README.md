@@ -75,7 +75,7 @@ A local file sharing utility written in Python. Uses multicast UDP to share the 
   - [x] CLI
   - [x] GUI
     - [ ] DnD
-    - [ ] Custom timout
+    - [x] Custom timout
 - Client
   - [x] Listen to see if anyone is sharing files
   - [x] List available files
